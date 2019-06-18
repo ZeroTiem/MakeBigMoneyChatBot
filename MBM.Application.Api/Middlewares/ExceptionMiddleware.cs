@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace MBM.Application.Api.Middlewares
 {
@@ -16,12 +17,19 @@ namespace MBM.Application.Api.Middlewares
         private readonly RequestDelegate next;
 
         /// <summary>
+        /// The logger
+        /// </summary>
+        private readonly ILogger logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionMiddleware"/> class.
         /// </summary>
         /// <param name="next">The next.</param>
-        public ExceptionMiddleware(RequestDelegate next)
+        /// <param name="logger">The logger.</param>
+        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
         {
             this.next = next;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -39,7 +47,8 @@ namespace MBM.Application.Api.Middlewares
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(httpContext, ex);
+                this.logger.LogError($"Something went wrong: {ex}");
+                await HandleExceptionAsync(httpContext);
             }
         }
 
@@ -47,11 +56,10 @@ namespace MBM.Application.Api.Middlewares
         /// Handles the exception asynchronous.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="exception">The exception.</param>
         /// <returns>
         /// Task
         /// </returns>
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private static Task HandleExceptionAsync(HttpContext context)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
