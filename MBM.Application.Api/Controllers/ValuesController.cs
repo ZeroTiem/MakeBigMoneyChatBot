@@ -3,41 +3,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MBM.Application.Api.Controllers
 {
+    /// <summary>
+    /// ValuesController
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns>
+        /// Enity
+        /// </returns>
+        /// <remarks>
+        /// remarks
+        /// </remarks>
+        /// <response code="201">Returns item</response>
+        /// <response code="400">If the item not found</response>
         [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(typeof(string[]), 400)]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new JsonResult(
-                new { A = "a", B = "b" });
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                new string[] { "AA", "BB" });
         }
     }
 }

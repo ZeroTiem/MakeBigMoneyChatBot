@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using MBM.Application.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,17 +42,23 @@ namespace MBM.Application.Api
             // Swagger 產生器是負責取得 API 的規格並產生 SwaggerDocument 物件。
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "API",
-                    Description = "Test API with ASP.NET Core 3.0",
-                    Contact = new OpenApiContact()
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
                     {
-                        Name = "Albert",
-                        Email = "albert.shen@gib4u.com",
-                    }
-                });
+                        Version = "v1",
+                        Title = "API",
+                        Description = "Test API with ASP.NET Core 3.0",
+                        Contact = new OpenApiContact()
+                        {
+                            Name = "Albert",
+                            Email = "albert.shen@gib4u.com",
+                        }
+                    });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -94,10 +103,9 @@ namespace MBM.Application.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint(
-                    // url: 需配合 SwaggerDoc 的 name。 "/swagger/{SwaggerDoc name}/swagger.json"
+                    //// url: 需配合 SwaggerDoc 的 name。 "/swagger/{SwaggerDoc name}/swagger.json"
                     url: "/swagger/v1/swagger.json",
-
-                    // name: 用於 Swagger UI 右上角選擇不同版本的 SwaggerDocument 顯示名稱使用。
+                    //// name: 用於 Swagger UI 右上角選擇不同版本的 SwaggerDocument 顯示名稱使用。
                     name: "Test API V1");
 
                 // 若要在應用程式的根目錄(http://localhost:<port>/) 上提供 Swagger UI，請將 RoutePrefix 屬性設為空字串
