@@ -33,7 +33,7 @@ namespace MBM.Application.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseNLog();
-                });
+                })
+                .UseNLog();
     }
 }

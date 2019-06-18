@@ -26,7 +26,9 @@ namespace MBM.Application.Api.Middlewares
         /// </summary>
         /// <param name="next">The next.</param>
         /// <param name="logger">The logger.</param>
-        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
+        public ExceptionMiddleware(
+            RequestDelegate next,
+            ILogger<ExceptionMiddleware> logger)
         {
             this.next = next;
             this.logger = logger;
