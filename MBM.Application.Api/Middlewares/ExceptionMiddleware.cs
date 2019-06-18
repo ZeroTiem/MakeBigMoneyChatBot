@@ -47,6 +47,12 @@ namespace MBM.Application.Api.Middlewares
             }
             catch (Exception ex)
             {
+                // 如果 Exception 不是自訂錯誤才記錄到 log
+                //if (!ex is MyException)
+                //{
+                //    this.logger.LogError($"Something went wrong: {ex}");
+                //}
+
                 this.logger.LogError($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext);
             }
