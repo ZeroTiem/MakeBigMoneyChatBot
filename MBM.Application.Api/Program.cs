@@ -15,9 +15,6 @@ namespace MBM.Application.Api
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            // 載入 NLog 組態設定檔
-            NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -30,10 +27,10 @@ namespace MBM.Application.Api
         /// </returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .UseNLog();
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            })
+            .UseNLog();
     }
 }

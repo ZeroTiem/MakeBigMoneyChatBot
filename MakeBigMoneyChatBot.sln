@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{6DD4082E-2196-4DB9-B920-DC31346114B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBM.Application.Api", "MBM.Application.Api\MBM.Application.Api.csproj", "{5E943223-B7EA-4647-ADB8-CA72FFE542E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MBM.Application.Api", "MBM.Application.Api\MBM.Application.Api.csproj", "{5E943223-B7EA-4647-ADB8-CA72FFE542E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

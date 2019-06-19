@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace MBM.Application.Api.Controllers
 {
@@ -11,6 +12,16 @@ namespace MBM.Application.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private readonly ILogger logger;
+
+        public ValuesController(ILogger<ValuesController> logger)
+        {
+            this.logger = logger;
+        }
+
         /// <summary>
         /// Gets this instance.
         /// </summary>
@@ -28,6 +39,13 @@ namespace MBM.Application.Api.Controllers
         [ProducesResponseType(typeof(string[]), 400)]
         public ActionResult<IEnumerable<string>> Get()
         {
+            this.logger.LogTrace("Trace", null);
+            this.logger.LogDebug("Debug", null);
+            this.logger.LogInformation("Info", null);
+            this.logger.LogWarning("Warn", null);
+            this.logger.LogError("Error", null);
+            this.logger.LogCritical("Fatal", null);
+
             return new JsonResult(
                 new string[] { "AA", "BB" });
         }
